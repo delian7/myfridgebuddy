@@ -33,8 +33,10 @@
   background-color: #91A3B0;
   height: 100%;
   width: 45%;
+  padding: 0 1em 0 1em;
+
 }
 
 .input-group {
-  top:50px;
+  padding:50px 0 25px 0;
 }
