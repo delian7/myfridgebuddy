@@ -19,7 +19,7 @@
 
 .jumbotron {
   background-color: #534B4F;
-  height: 510px;
+  height: auto;
   background-repeat: no-repeat;
   background-size: auto;
 }
@@ -31,7 +31,8 @@
 .jumbotron .box {
   border-radius: 25px;
   background-color: #91A3B0;
-  height: 100%;
+  height: auto;
+  min-height: 300px;
   width: 45%;
   padding: 0 1em 0 1em;
 
