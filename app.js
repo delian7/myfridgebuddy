@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://myfridgebuddy:informatics134@ds043329.mongolab.com:43329/myfridgebuddy');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -11,6 +13,7 @@ var recipes = require('./routes/recipes');
 var login = require('./routes/login');
 
 var app = express();
+
 var FACEBOOK_APP_ID = "1572522816341345";
 var FACEBOOK_APP_SECRET = "92431a90307b7b14ffd2952c38afe978";
 // view engine setup
@@ -72,7 +75,7 @@ passport.use(new FacebookStrategy({
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
     process.nextTick(function () {
-      
+
       // To keep the example simple, the user's Facebook profile is returned to
       // represent the logged-in user.  In a typical application, you would want
       // to associate the Facebook account with a user record in your database,
@@ -90,7 +93,7 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
 // authentication process by attempting to obtain an access token.  If
 // access was granted, the user will be logged in.  Otherwise,
 // authentication has failed.
-app.get('/auth/facebook/callback', 
+app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { successRedirect: '/',
                                       failureRedirect: '/login' }));
 app.get('/auth/facebook',
