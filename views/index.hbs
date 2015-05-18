@@ -11,7 +11,7 @@
 
           <form action="/" method="post" id="recipeForm">
             <div class="input-group">
-              <input type="text" name="ingredient" value="eggs" class="form-control" placeholder="Type the ingredients that you have...">
+              <input id="ingredientInputField" type="text" name="ingredient" class="form-control" placeholder="Type the ingredients that you have...">
               <span class="input-group-btn">
                 <button id="recipeSubmit" class="btn btn-default" type="submit">
                   <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;</button>
@@ -23,12 +23,11 @@
         <!-- /.col-lg-12 -->
       </div>
       <!-- /.row -->
+      <div id="ingredient-display"></div>
       <div class="row">
-        <table id="recipe-result-table" class="table">
+        <table id="recipe-result-table" class="table table-condensed ">
           <tbody>
           </tbody>
-
-
         </table>
       </div>
     </div>
