@@ -8,32 +8,31 @@ $('#ingredientInputField').keydown(function(e){
     //if enter or tab is pressed
     if(e.which == 13 || e.which == 9) {
 
-        var ingredient = $(this).val();
+        //if ingredient is NOT in the array
+        if( $.inArray(ingredient, ingredients) == -1){
+            var ingredient = $(this).val();
 
-        $('#ingredient-display').append('<span class="btn btn-primary btn-lg ingredient-pill">'+ ingredient + '&nbsp;<span id="remove-'+ ingredient + '" class="glyphicon glyphicon-remove-circle"></span>');
+            $('#ingredient-display').append('<span class="btn btn-primary btn-lg ingredient-pill">'+ ingredient + '&nbsp;<span id="remove-'+ ingredient + '" class="glyphicon glyphicon-remove-circle"></span>');
+
+            //add the ingredient to the ingredients array to use it later
+            ingredients.push(ingredient);
+        }
+        else {
+            alert(ingredient + ' was already entered');
+        }
 
         //clears the form
         $(this).val("");
-        
+
         //return false since we don't want the focus to 'tab' to another element
         return false;
     };
-
 });
 
 
 $("#recipeForm").submit(function(e) {
     e.preventDefault();
-    // var inputs = $(this).serializeArray(); //gets the user inputted ingredients
-    //
-    // $.each(inputs, function(key, value) {
-    //     ingredients.push(value.value);
-    // });
-    //
-    // ingredients.push('milk');
-    //
-    //
-    // retrieveRecipes();
+    retrieveRecipes();
 });
 
 function retrieveRecipes() {
@@ -49,9 +48,6 @@ function retrieveRecipes() {
 
         },
         success: function(response) {
-
-
-
 
             $.each(response["matches"], function(key, value) {
                 $("#recipe-result-table").find('tbody')
