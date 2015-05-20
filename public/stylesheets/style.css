@@ -74,12 +74,17 @@
   bottom: 100000px;
 }
 
-.jumbotron .row {
+.jumbotron .row .title {
   margin-height: auto;
   margin-width: auto;
   border-style: solid;
   border-color: black;
 }
+
+.jumbotron .row .title a {
+  font-size: 20px;
+}
+
 .ingredient-pill {
   border-radius: 24px;
   margin: -0.5em 0.5em 1.5em 0.5em
