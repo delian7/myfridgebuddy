@@ -35,11 +35,17 @@ $('#ingredientInputField').keydown(function(e){
 
 
 $("#recipeForm").submit(function(e) {
+    $("#recipe-result-table").find('tbody').empty();
+
+
+
     if (e.which==13){
 
     }
-    else{e.preventDefault();
-    retrieveRecipes();}
+    else{
+        e.preventDefault();
+    retrieveRecipes();
+}
     
 });
 function removespan(span,ingredient){
