@@ -35,8 +35,12 @@ $('#ingredientInputField').keydown(function(e){
 
 
 $("#recipeForm").submit(function(e) {
-    e.preventDefault();
-    retrieveRecipes();
+    if (e.which==13){
+
+    }
+    else{e.preventDefault();
+    retrieveRecipes();}
+    
 });
 function removespan(span,ingredient){
     $('#' + ingredient + '-button').remove();
