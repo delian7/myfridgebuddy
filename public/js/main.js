@@ -11,8 +11,9 @@ $('#ingredientInputField').keydown(function(e){
         //if ingredient is NOT in the array
         if( $.inArray(ingredient, ingredients) == -1){
             var ingredient = $(this).val();
+            $.trim(ingredient);
 
-            $('#ingredient-display').append('<span class="btn btn-primary btn-lg ingredient-pill">'+ ingredient + '&nbsp;<span id="remove-'+ ingredient + '" class="glyphicon glyphicon-remove-circle"></span>');
+            $('#ingredient-display').append('<span id='+ingredient+'-button class="btn btn-primary btn-lg ingredient-pill">'+ ingredient + '&nbsp;<span id="remove-'+ ingredient + '" class="glyphicon glyphicon-remove-circle" onClick = "removespan(this,\'' + ingredient +'\');"></span>');
 
             //add the ingredient to the ingredients array to use it later
             ingredients.push(ingredient);
@@ -34,7 +35,13 @@ $("#recipeForm").submit(function(e) {
     e.preventDefault();
     retrieveRecipes();
 });
+function removespan(span,ingredient){
+    $('#' + ingredient + '-button').remove();
+    span.parentNode.innerHTML = "";
+    var itemtoRemove = ingredient;
+    ingredients.splice($.inArray(itemtoRemove, ingredients),1);
 
+}
 function retrieveRecipes() {
 
     $.ajax({
