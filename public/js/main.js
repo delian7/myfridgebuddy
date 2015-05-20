@@ -7,6 +7,9 @@ $('#ingredientInputField').keydown(function(e){
 
     //if enter or tab is pressed
     if(e.which == 13 || e.which == 9) {
+        if (ingredient === ""|| ingredient === " "){
+            return false;
+        }
 
         //if ingredient is NOT in the array
         if( $.inArray(ingredient, ingredients) == -1){
