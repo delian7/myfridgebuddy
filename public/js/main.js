@@ -53,6 +53,12 @@ function removespan(span,ingredient){
     span.parentNode.innerHTML = "";
     var itemtoRemove = ingredient;
     ingredients.splice($.inArray(itemtoRemove, ingredients),1);
+    $("#recipe-result-table").find('tbody').empty();
+
+    if(ingredients.length !=0){
+            retrieveRecipes();
+    }
+
 
 }
 function retrieveRecipes() {
