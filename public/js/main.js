@@ -66,18 +66,28 @@ function removespan(span,ingredient){
 }
 
 function displayResults(apiResponse) {
-    $.each(apiResponse["results"], function(key, value) {
-        $("#recipe-result-table").find('tbody')
-            .append($('<tr>')
-                .append($('<td>')
-                    .append(value.name)
-                )
-            );
-    })
   $('#searchButton').css("display", "none");
+  console.log(apiResponse["results"]);
+
+  var tbody = $("#recipe-result-table").find('tbody');
+
+  $.each(apiResponse["results"], function(key, value) {
+
+      var row = $('<tr>').append(
         //some images are given 404 error so onerror handles this
         $('<td></td>').html("<img id='recipeThumb' onerror='imgError(this);' src=" + value.thumb + ">"),
         $('<td></td>').html("<a href=" + value.url + ">" + value.name + "</a>" )
+      );
+
+
+
+      tbody.append(row);
+
+  });
+
+
+}
+
 function imgError(image) {
     image.onerror = "";
     image.src = "/images/noimage.jpg";
