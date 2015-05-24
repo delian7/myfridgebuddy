@@ -46,7 +46,7 @@ $("#recipeForm").submit(function(e) {
         e.preventDefault();
     retrieveRecipes();
 }
-    
+
 });
 function removespan(span,ingredient){
     $('#' + ingredient + '-button').remove();
@@ -62,24 +62,20 @@ function removespan(span,ingredient){
 
 }
 function retrieveRecipes() {
-
     $.ajax({
-        url: "http://api.yummly.com/v1/api/recipes",
+        url: "http://api.pearson.com:80/kitchen-manager/v1/recipes",
         type: "get", //send it through get method
         data: {
-            _app_id: app_id,
-            _app_key: app_key,
-            requirePictures: true,
-            allowedIngredient: ingredients
+            "ingredients-any": String(ingredients), //API wants a comma-seperated string
+            "limit": 50
 
         },
         success: function(response) {
-
-            $.each(response["matches"], function(key, value) {
+            $.each(response["results"], function(key, value) {
                 $("#recipe-result-table").find('tbody')
                     .append($('<tr>')
                         .append($('<td>')
-                            .append(value.recipeName)
+                            .append(value.name)
                         )
                     );
             })
