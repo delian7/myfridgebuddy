@@ -57,7 +57,7 @@
   padding: 2em;
 }
 
-.jumbotron a {
+#header {
 
   color: #FFFFFF;
   opacity: 1;
@@ -70,7 +70,7 @@
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
-.jumbotron a:hover {
+#header:hover {
   color: #91A3B0;
   opacity: 1;
   padding-bottom:100px;
