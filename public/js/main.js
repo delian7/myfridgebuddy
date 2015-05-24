@@ -75,6 +75,13 @@ function displayResults(apiResponse) {
             );
     })
   $('#searchButton').css("display", "none");
+        //some images are given 404 error so onerror handles this
+        $('<td></td>').html("<img id='recipeThumb' onerror='imgError(this);' src=" + value.thumb + ">"),
+        $('<td></td>').html("<a href=" + value.url + ">" + value.name + "</a>" )
+function imgError(image) {
+    image.onerror = "";
+    image.src = "/images/noimage.jpg";
+    return true;
 }
 
 function retrieveRecipes() {
