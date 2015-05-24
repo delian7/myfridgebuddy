@@ -61,24 +61,28 @@ function removespan(span,ingredient){
 
 
 }
+
+function displayResults(apiResponse) {
+    $.each(apiResponse["results"], function(key, value) {
+        $("#recipe-result-table").find('tbody')
+            .append($('<tr>')
+                .append($('<td>')
+                    .append(value.name)
+                )
+            );
+    })
+}
+
 function retrieveRecipes() {
     $.ajax({
         url: "http://api.pearson.com:80/kitchen-manager/v1/recipes",
         type: "get", //send it through get method
         data: {
-            "ingredients-any": String(ingredients), //API wants a comma-seperated string
-            "limit": 50
+            "ingredients-any": String(ingredients) //API wants a comma-seperated string
 
         },
         success: function(response) {
-            $.each(response["results"], function(key, value) {
-                $("#recipe-result-table").find('tbody')
-                    .append($('<tr>')
-                        .append($('<td>')
-                            .append(value.name)
-                        )
-                    );
-            })
+            displayResults(response)
         },
         error: function(err) {
             console.log(err);
