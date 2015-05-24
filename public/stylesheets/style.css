@@ -48,6 +48,14 @@
   background-size: auto;
 }
 .jumbotron a {
+#recipeThumb {
+  width: 200px;
+	height: 200px;
+	border-radius: 150px;
+	-webkit-border-radius: 150px;
+	-moz-border-radius: 150px;
+  padding: 2em;
+}
   color: #FFFFFF;
   opacity: 1;
   padding-bottom:100px;
