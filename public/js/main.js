@@ -74,6 +74,7 @@ function displayResults(apiResponse) {
                 )
             );
     })
+  $('#searchButton').css("display", "none");
 }
 
 function retrieveRecipes() {
