@@ -28,6 +28,8 @@ $('#ingredientInputField').keydown(function(e){
         //clears the form
         $(this).val("");
 
+        e.preventDefault();
+        retrieveRecipes();
         //return false since we don't want the focus to 'tab' to another element
         return false;
     };
