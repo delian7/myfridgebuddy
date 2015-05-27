@@ -63,7 +63,6 @@ function removespan(span,ingredient){
 }
 
 function displayResults(apiResponse) {
-  console.log(apiResponse["results"]);
 
   var tbody = $("#recipe-result-table").find('tbody');
 
@@ -95,7 +94,7 @@ function retrieveRecipes() {
         url: "http://api.pearson.com:80/kitchen-manager/v1/recipes",
         type: "get", //send it through get method
         data: {
-            "ingredients-any": String(ingredients) //API wants a comma-seperated string
+            "ingredients-all": String(ingredients) //API wants a comma-seperated string
 
         },
         success: function(response) {
