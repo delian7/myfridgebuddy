@@ -28,9 +28,6 @@ $('#ingredientInputField').keydown(function(e){
         //clears the form
         $(this).val("");
 
-        //displays the search button
-        $('#searchButton').css("display", "block");
-
         //return false since we don't want the focus to 'tab' to another element
         return false;
     };
@@ -66,7 +63,6 @@ function removespan(span,ingredient){
 }
 
 function displayResults(apiResponse) {
-  $('#searchButton').css("display", "none");
   console.log(apiResponse["results"]);
 
   var tbody = $("#recipe-result-table").find('tbody');
