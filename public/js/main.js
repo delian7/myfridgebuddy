@@ -89,8 +89,9 @@ function displayResults(apiResponse) {
     // console.log(value)
       var row = $('<tr>').append(
         //some images are given 404 error so onerror handles this
-        $('<td></td>').html("<img id='recipeThumb' onerror='imgError(this);' src=" + value.thumb + ">"),
-        $('<td></td>').html("<a href=" + value.url + ">" + value.name + "</a>" )
+        $('<td style="width:30%"></td>').html("<img id='recipeThumb' onerror='imgError(this);' src=" + value.thumb + ">"),
+        $('<td id="recipe-content-column"></td>').html("<a href=" + value.url + ">" + value.name + "</a>" + "<br><br>" + recipeIngredients.join("<br>")),
+        $('<td class="middle-align"></td>').html("<br/><br/><a class='btn-lg btn btn-success' href='/'>Directions</a>")
       );
 
 
@@ -103,7 +104,7 @@ function displayResults(apiResponse) {
 }
 
 function capitalize(string) {
-  return string.charAt(0).toUpperCase() + string.substring(1);
+  return "• " + string.charAt(0).toUpperCase() + string.substring(1);
 }
 
 function imgError(image) {
