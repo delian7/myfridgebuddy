@@ -8,6 +8,7 @@ $('#ingredientInputField').keydown(function(e){
     //if enter or tab is pressed
     if(e.which == 13 || e.which == 9) {
         if (ingredient === ""|| ingredient === " "){
+
             return false;
         }
 
@@ -29,7 +30,11 @@ $('#ingredientInputField').keydown(function(e){
         $(this).val("");
 
         e.preventDefault();
+
+        $("#recipe-result-table").find('tbody').empty();
         retrieveRecipes();
+
+
         //return false since we don't want the focus to 'tab' to another element
         return false;
     };
