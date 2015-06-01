@@ -42,6 +42,13 @@
    background: rgba(0, 0, 0, 0.7);
 }
 
+#recipe-content-column a {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+
 .jumbotron {
   height: auto;
   background-repeat: repeat;
@@ -49,12 +56,10 @@
 }
 
 #recipeThumb {
-  width: 200px;
-	height: 200px;
-	border-radius: 150px;
-	-webkit-border-radius: 150px;
-	-moz-border-radius: 150px;
-  padding: 2em;
+	height: 110px;
+	border-radius: 50px;
+	-webkit-border-radius: 50px;
+	-moz-border-radius: 50px;
 }
 
 #header {
