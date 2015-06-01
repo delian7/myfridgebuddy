@@ -71,10 +71,22 @@ function removespan(span,ingredient){
 
 function displayResults(apiResponse) {
 
+
   var tbody = $("#recipe-result-table").find('tbody');
 
   $.each(apiResponse["results"], function(key, value) {
 
+    recipeIngredients = [];
+    $.each(value["ingredients"], function(key, ingredient) {
+      recipeIngredients.push(capitalize(ingredient));
+
+
+
+      // capitalizeMe.charAt(0).toUpperCase() + capitalizeMe.substring(1);
+    });
+
+    console.log(recipeIngredients);
+    // console.log(value)
       var row = $('<tr>').append(
         //some images are given 404 error so onerror handles this
         $('<td></td>').html("<img id='recipeThumb' onerror='imgError(this);' src=" + value.thumb + ">"),
@@ -88,6 +100,10 @@ function displayResults(apiResponse) {
   });
 
 
+}
+
+function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.substring(1);
 }
 
 function imgError(image) {
