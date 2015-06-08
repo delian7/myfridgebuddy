@@ -186,10 +186,12 @@ function retrieveRecipes(offset) {
 
         },
         success: function(response) {
-            $("#modal-areas").empty(); //since we don't want to keep loading modals
+
             //if the recipe search starts at the beginning [at 0] (when a user enters a new ingredient or deletes ingredient)
-            if (offset == 0)
-              $("#recipe-result-table").find('tbody').empty();
+            if (offset == 0) {
+              $("#modal-areas").empty(); // we don't want to keep irrelevant modals
+              $("#recipe-result-area").empty(); // we don't want to keep irrelevant results
+            }
             displayResults(response["results"]);
             setup_pagination(response["total"]);
         },
