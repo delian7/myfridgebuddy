@@ -69,12 +69,11 @@ function removespan(span,ingredient){
 
 }
 
-function displayResults(apiResponse) {
-
+function displayResults(apiArray) {
 
   var tbody = $("#recipe-result-table").find('tbody');
 
-  $.each(apiResponse["results"], function(key, value) {
+  $.each(apiArray, function(key, value) {
 
     recipeIngredients = [];
     $.each(value["ingredients"], function(key, ingredient) {
@@ -153,7 +152,7 @@ function retrieveRecipes() {
 
         },
         success: function(response) {
-            displayResults(response)
+            displayResults(response["results"])
         },
         error: function(err) {
             console.log(err);
