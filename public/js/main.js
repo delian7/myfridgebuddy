@@ -97,25 +97,29 @@ function imgError(image) {
 function displayResults(apiArray) {
   var tbody = $("#recipe-result-table").find('tbody');
   $.each(apiArray, function(key, value) {
+
     recipeIngredients = [];
     $.each(value["ingredients"], function(key, ingredient) {
       recipeIngredients.push(capitalize(ingredient));
     });
 
-      var row = $('<tr>').append(
-        //some images are given 404 error so onerror handles this
-        $('<td style="width:30%"></td>').html("<img id='recipeThumb' onerror='imgError(this);' src=" + value.thumb + ">"),
-        $('<td id="recipe-content-column"></td>').html("<a href=" + value.url + ">" + value.name + "</a>" + "<br><br>" + recipeIngredients.join("<br>")),
-        $('<td class="middle-align"></td>').html("<br/><br/><a class='btn-lg btn btn-success' id='direction-button' href='#'>Directions</a>")
+    var row = $('<tr>').append(
+      //some images are given 404 error so onerror handles this
+      $('<td style="width:30%"></td>').html("<img id='recipeThumb' onerror='imgError(this);' src=" + value.thumb + ">"),
+      $('<td id="recipe-content-column"></td>').html("<a href=" + value.url + ">" + value.name + "</a>" + "<br><br>" + recipeIngredients.join("<br>")),
+      $('<td class="middle-align"></td>').html("<br/><br/><a class='btn-lg btn btn-success' id='direction-button' href='#'>Directions</a>")
 
-      );
+    );
+    tbody.append(row);
 
-      tbody.append(row);
+    makeRecipeModal(value.url);
 
   });
 }
 
+function makeRecipeModal(recipeURL) {
 
+}
 
 function retrieveRecipes(offset) {
     $.ajax({
