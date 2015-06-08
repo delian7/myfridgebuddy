@@ -32,7 +32,7 @@ $('#ingredientInputField').keydown(function(e){
         e.preventDefault();
 
         $("#recipe-result-table").find('tbody').empty();
-        retrieveRecipes();
+        retrieveRecipes(0);
 
 
         //return false since we don't want the focus to 'tab' to another element
@@ -51,7 +51,7 @@ $("#recipeForm").submit(function(e) {
     }
     else{
         e.preventDefault();
-    retrieveRecipes();
+    retrieveRecipes(0);
 }
 
 });
@@ -63,7 +63,7 @@ function removespan(span,ingredient){
     $("#recipe-result-table").find('tbody').empty();
 
     if(ingredients.length !=0){
-            retrieveRecipes();
+            retrieveRecipes(0);
     }
 
 
@@ -84,7 +84,7 @@ function displayResults(apiArray) {
       // capitalizeMe.charAt(0).toUpperCase() + capitalizeMe.substring(1);
     });
 
-    console.log(recipeIngredients);
+
     // console.log(value)
       var row = $('<tr>').append(
         //some images are given 404 error so onerror handles this
@@ -143,12 +143,13 @@ bootbox.dialog({
 
 }
 
-function retrieveRecipes() {
+function retrieveRecipes(offset) {
     $.ajax({
         url: "http://api.pearson.com:80/kitchen-manager/v1/recipes",
         type: "get", //send it through get method
         data: {
-            "ingredients-all": String(ingredients) //API wants a comma-seperated string
+            "ingredients-all": String(ingredients), //API wants a comma-seperated string
+            "offset": offset //for pagination purposes, at what recipe should the display results return the (next 10) recipes
 
         },
         success: function(response) {
