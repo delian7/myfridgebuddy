@@ -92,6 +92,9 @@ function displayResults(apiResponse) {
         $('<td style="width:30%"></td>').html("<img id='recipeThumb' onerror='imgError(this);' src=" + value.thumb + ">"),
         $('<td id="recipe-content-column"></td>').html("<a href=" + value.url + ">" + value.name + "</a>" + "<br><br>" + recipeIngredients.join("<br>")),
         $('<td class="middle-align"></td>').html("<br/><br/><a class='btn-lg btn btn-success' href='/'>Directions</a>")
+      //call Recipe PAge Function
+
+
       );
 
 
@@ -99,9 +102,8 @@ function displayResults(apiResponse) {
       tbody.append(row);
 
   });
-
-
 }
+
 
 function capitalize(string) {
   return "• " + string.charAt(0).toUpperCase() + string.substring(1);
@@ -111,6 +113,35 @@ function imgError(image) {
     image.onerror = "";
     image.src = "/images/noimage.jpg";
     return true;
+}
+function RecipePage() {
+bootbox.dialog({
+  /**
+   * @required String|Element
+   */
+  message: "Picture  Recipe Name\n Ingrediants \n Quantity Ingrediant \n ... \n Directions \n full directions ",
+  
+  /**
+   * @optional String|Element
+   * adds a header to the dialog and places this text in an h4
+   */
+  title: "Recipe",
+  
+  /**
+   * @optional Function
+   * allows the user to dismisss the dialog by hitting ESC, which
+   * will invoke this function
+   */
+ // onEscape: function() {},
+  
+  
+  
+ 
+   
+   // "Another label": function() {}
+  
+});
+
 }
 
 function retrieveRecipes() {
@@ -129,3 +160,4 @@ function retrieveRecipes() {
         }
     });
 };
+
