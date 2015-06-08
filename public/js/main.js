@@ -156,8 +156,10 @@ function retrieveRecipes(offset) {
 
         },
         success: function(response) {
-            $("#modal-areas").empty();
-            $("#recipe-result-table").find('tbody').empty();
+            $("#modal-areas").empty(); //since we don't want to keep loading modals
+            //if the recipe search starts at the beginning [at 0] (when a user enters a new ingredient or deletes ingredient)
+            if (offset == 0)
+              $("#recipe-result-table").find('tbody').empty();
             displayResults(response["results"]);
             setup_pagination(response["total"]);
         },
