@@ -114,6 +114,7 @@
 }
 
 .jumbotron .box {
+  min-width: 31.9em;
   border-radius: 25px;
   background-color: #91A3B0;
   height: auto;
