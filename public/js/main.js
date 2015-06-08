@@ -112,14 +112,31 @@ function displayResults(apiArray) {
     );
     tbody.append(row);
 
-    makeRecipeModal(value.url);
+    retrieveRecipeSpecifics(value.url);
 
   });
 }
 
-function makeRecipeModal(recipeURL) {
+function retrieveRecipeSpecifics(recipeURL) {
+  $.ajax({
+    url: recipeURL,
+    type: "get",
+    success: function(response) {
+      makeRecipeModal(response);
+    },
+    error: function(err) {
+      console.log(err);
+    }
+  });
+};
 
-}
+function makeRecipeModal(recipes) {
+  var name = recipes["name"]; //string
+  var ingredients = recipes["ingredients"]; //array
+  var directions = recipes["directions"]; //array
+  var nutritional_info = recipes["nutritional_info"]; //array
+
+};
 
 function retrieveRecipes(offset) {
     $.ajax({
