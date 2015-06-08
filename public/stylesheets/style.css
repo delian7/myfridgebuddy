@@ -15,6 +15,13 @@
 
 }
 
+.modal-header .close {
+  margin-top: -0.4em;
+  font-size: 3.5em;
+  color: black;
+  opacity: 0.5;
+}
+
 #next-button {
   margin-top: 2em;
 }
