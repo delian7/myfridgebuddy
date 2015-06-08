@@ -70,39 +70,25 @@ function removespan(span,ingredient){
 }
 
 function displayResults(apiArray) {
-
   var tbody = $("#recipe-result-table").find('tbody');
-
   $.each(apiArray, function(key, value) {
-
     recipeIngredients = [];
     $.each(value["ingredients"], function(key, ingredient) {
       recipeIngredients.push(capitalize(ingredient));
-
-
-
-      // capitalizeMe.charAt(0).toUpperCase() + capitalizeMe.substring(1);
     });
 
-
-    // console.log(value)
       var row = $('<tr>').append(
         //some images are given 404 error so onerror handles this
         $('<td style="width:30%"></td>').html("<img id='recipeThumb' onerror='imgError(this);' src=" + value.thumb + ">"),
         $('<td id="recipe-content-column"></td>').html("<a href=" + value.url + ">" + value.name + "</a>" + "<br><br>" + recipeIngredients.join("<br>")),
-        $('<td class="middle-align"></td>').html("<br/><br/><a class='btn-lg btn btn-success' onclick='RecipePage()' id='direction-button' href='#'>Directions</a>")
-      //call Recipe PAge Function
-
+        $('<td class="middle-align"></td>').html("<br/><br/><a class='btn-lg btn btn-success' id='direction-button' href='#'>Directions</a>")
 
       );
-
-
 
       tbody.append(row);
 
   });
 }
-
 
 function capitalize(string) {
   return "• " + string.charAt(0).toUpperCase() + string.substring(1);
@@ -112,7 +98,7 @@ function setup_pagination(total_results) {
   $('#next-button').removeAttr('style'); //unhides the next button
 
 
-  if(last_recipe_displayed < total_results - 10) { 
+  if(last_recipe_displayed < total_results - 10) {
     last_recipe_displayed += 10;
     $('#next-button').attr('onclick', 'retrieveRecipes(' + last_recipe_displayed + ')')
   }
@@ -127,13 +113,7 @@ function imgError(image) {
     image.src = "/images/noimage.jpg";
     return true;
 }
-function RecipePage() {
-  bootbox.dialog({
-    title: "Recipe",
-    message: "<div class='btn btn-lg'>Hello!</div>" + "<p>H1</p>"
-  });
 
-}
 
 function retrieveRecipes(offset) {
     $.ajax({
