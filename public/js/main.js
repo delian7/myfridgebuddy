@@ -70,6 +70,7 @@ function removespan(span,ingredient){
 }
 
 function capitalize(string) {
+  // console.log(string)
   return "<li>" + string.charAt(0).toUpperCase() + string.substring(1) + "</li>";
 }
 
@@ -93,6 +94,16 @@ function imgError(image) {
     return true;
 }
 
+function makeList(array) {
+    var tmpArray = []
+    $.each(array, function(i, value) {
+
+        tmpArray.push(capitalize(value));
+    });
+
+    return tmpArray;
+};
+
 
 function displayResults(apiArray) {
   // var tbody = $("#recipe-result-table").find('tbody');
@@ -100,16 +111,11 @@ function displayResults(apiArray) {
 
   $.each(apiArray, function(key, value) {
 
-    recipeIngredients = [];
-    $.each(value["ingredients"], function(key, ingredient) {
-      recipeIngredients.push(capitalize(ingredient));
-    });
-
     var title = $("<div class='row'><div class='col-md-12 text-center'><h3>" + value.name + "</h3></div></div>");
     var row = $("<div class='row'></div>");
     var pic_col = $("<div class='col-md-5'><img id='recipeThumb' onerror='imgError(this);' src='" + value.thumb + "'></div>");
-    var ingredients_col = $("<div class='col-md-offset-1 col-md-6'>" + recipeIngredients.join('') + "</div>");
-    var info_button = $("<div class='row'><div class='col-md-12'><button style='margin-top: 1em' class='btn btn-primary btn-block'>Directions</button></div></div>");
+    var ingredients_col = $("<div class='col-md-offset-1 col-md-6'>" + makeList(value['ingredients']).join('') + "</div>");
+    var info_button = $("<div class='row' id='"+ value.id + "-directions-button-column'></div>");
 
     row.append(title);
     row.append(pic_col);
@@ -129,10 +135,24 @@ function retrieveRecipeSpecifics(recipeURL) {
     success: function(recipes) {
       var id = recipes["id"]; //string
       var name = recipes["name"]; //string
-      var ingredients = recipes["ingredients"]; //array
-      var directions = recipes["directions"]; //array
-      var nutritional_info = recipes["nutritional_info"]; //array
-      makeRecipeModal(id, name, ingredients, directions, nutritional_info)
+      var pic_url = recipes["image"] //string
+
+      //recipe_ingredients array
+      var recipe_ingredients = []
+      $.each(recipes['ingredients'], function(i, value){
+        recipe_ingredients.push(value['name']);
+      });
+
+      //directions array
+      var directions = recipes['directions']
+
+      ///nutritional_info array
+      var nutritional_info = []
+      $.each(recipes["nutritional_info"], function(i, value){
+        nutritional_info.push(value);
+      });
+
+      makeRecipeModal(id, pic_url, name, recipe_ingredients, directions, nutritional_info)
     },
     error: function(err) {
       console.log(err);
@@ -140,14 +160,19 @@ function retrieveRecipeSpecifics(recipeURL) {
   });
 };
 
-function makeRecipeModal(id, name, ingredients, directions, nutritional_info) {
+function makeRecipeModal(id, pic_url, name, recipe_ingredients, directions, nutritional_info) {
 
-  $('#modal-areas').append('<div class="modal fade" id="'+ id + '" role="dialog"> <div class="modal-dialog"> <div class="modal-content"> <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> <h4 class="modal-title" id="recipe-name"></h4> </div><div class="modal-body"> <div class="row"> <div class="col-lg-6"> <img src="/images/food.jpg" class="img-circle" height="200" width="200" > </div><div class="col-lg-6"> <h4 class="modal-title">Ingredients</h4> <ul id="ingredients-list"> </ul> </div></div><br><br><div class="row"> <div class="col-lg-12"> <h4 class="modal-title">Directions</h4> <ol id="directions-list"> </ol> </div></div><div class="row"> <div class="col-lg-12"> <h4 class="modal-title">Nutritional Information</h4> <ul id="nutritional_info"> </ul> </div></div></div><div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> </div></div></div>');
+  $('#modal-areas').append('<div class="modal fade" id="'+ id + '" role="dialog"> <div class="modal-dialog"> <div class="modal-content"> <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> <h4 class="modal-title" id="recipe-name"></h4> </div><div class="modal-body"> <div class="row"> <div class="col-lg-6"> <img id="recipe-image" class="img-circle" height="200" width="200" > </div><div class="col-lg-6"> <h4 class="modal-title">Ingredients</h4> <ul id="ingredients-list"> </ul> </div></div><div class="row"> <div class="col-lg-12"> <h4 class="modal-title">Directions</h4> <ol id="directions-list"> </ol> </div></div><div class="row"> <div class="col-lg-12"> <h4 class="modal-title">Nutritional Information</h4> <ul id="nutritional_info"> </ul> </div></div></div><div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> </div></div></div>');
 
+  $('#' + id + '-directions-button-column').html("<div class='col-md-12'><button style='margin-top: 1em' class='btn btn-primary btn-block' data-toggle='modal' data-target='#"+ id + "'>Directions</button></div>");
   $('#' + id + ' #recipe-name').html(name);
-  $('#' + id + ' #ingredients-list').html("<li>Ingredients</li>");
-  $('#' + id + ' #directions-list').html("<li>Directions</li>")
-  $('#' + id + ' #nutritional_info').html("<li>Nutritional Information</li>")
+  $('#' + id + ' #recipe-image').attr('src', pic_url);
+  $('#' + id + ' #ingredients-list').html(makeList(recipe_ingredients).join(''));
+  $('#' + id + ' #directions-list').html(makeList(directions).join(''));
+  $('#' + id + ' #nutritional_info').html(makeList(nutritional_info));
+
+
+  // <div class='col-md-12'><button style='margin-top: 1em' class='btn btn-primary btn-block'>Directions</button></div>
 
 };
 
