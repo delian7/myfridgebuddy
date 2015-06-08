@@ -90,7 +90,7 @@ function displayResults(apiArray) {
         //some images are given 404 error so onerror handles this
         $('<td style="width:30%"></td>').html("<img id='recipeThumb' onerror='imgError(this);' src=" + value.thumb + ">"),
         $('<td id="recipe-content-column"></td>').html("<a href=" + value.url + ">" + value.name + "</a>" + "<br><br>" + recipeIngredients.join("<br>")),
-        $('<td class="middle-align"></td>').html("<br/><br/><a class='btn-lg btn btn-success' href='/'>Directions</a>")
+        $('<td class="middle-align"></td>').html("<br/><br/><a class='btn-lg btn btn-success' onclick='RecipePage()' id='direction-button' href='#'>Directions</a>")
       //call Recipe PAge Function
 
 
@@ -128,32 +128,10 @@ function imgError(image) {
     return true;
 }
 function RecipePage() {
-bootbox.dialog({
-  /**
-   * @required String|Element
-   */
-  message: "Picture  Recipe Name\n Ingrediants \n Quantity Ingrediant \n ... \n Directions \n full directions ",
-  
-  /**
-   * @optional String|Element
-   * adds a header to the dialog and places this text in an h4
-   */
-  title: "Recipe",
-  
-  /**
-   * @optional Function
-   * allows the user to dismisss the dialog by hitting ESC, which
-   * will invoke this function
-   */
- // onEscape: function() {},
-  
-  
-  
- 
-   
-   // "Another label": function() {}
-  
-});
+  bootbox.dialog({
+    title: "Recipe",
+    message: "<div class='btn btn-lg'>Hello!</div>" + "<p>H1</p>"
+  });
 
 }
 
@@ -176,4 +154,3 @@ function retrieveRecipes(offset) {
         }
     });
 };
-
