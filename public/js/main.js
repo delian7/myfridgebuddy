@@ -108,6 +108,10 @@ function capitalize(string) {
   return "• " + string.charAt(0).toUpperCase() + string.substring(1);
 }
 
+function setup_pagination(total_results) {
+  
+}
+
 function imgError(image) {
     image.onerror = "";
     image.src = "/images/noimage.jpg";
@@ -153,7 +157,8 @@ function retrieveRecipes(offset) {
 
         },
         success: function(response) {
-            displayResults(response["results"])
+            displayResults(response["results"]);
+            setup_pagination(response["total"]);
         },
         error: function(err) {
             console.log(err);
