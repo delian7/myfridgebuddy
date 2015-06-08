@@ -121,8 +121,13 @@ function retrieveRecipeSpecifics(recipeURL) {
   $.ajax({
     url: recipeURL,
     type: "get",
-    success: function(response) {
-      makeRecipeModal(response);
+    success: function(recipes) {
+      var id = recipes["id"]; //string
+      var name = recipes["name"]; //string
+      var ingredients = recipes["ingredients"]; //array
+      var directions = recipes["directions"]; //array
+      var nutritional_info = recipes["nutritional_info"]; //array
+      makeRecipeModal(id, name, ingredients, directions, nutritional_info)
     },
     error: function(err) {
       console.log(err);
@@ -130,11 +135,14 @@ function retrieveRecipeSpecifics(recipeURL) {
   });
 };
 
-function makeRecipeModal(recipes) {
-  var name = recipes["name"]; //string
-  var ingredients = recipes["ingredients"]; //array
-  var directions = recipes["directions"]; //array
-  var nutritional_info = recipes["nutritional_info"]; //array
+function makeRecipeModal(id, name, ingredients, directions, nutritional_info) {
+
+  $('#modal-areas').append('<div class="modal fade" id="'+ id + '" role="dialog"> <div class="modal-dialog"> <div class="modal-content"> <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> <h4 class="modal-title" id="recipe-name"></h4> </div><div class="modal-body"> <div class="row"> <div class="col-lg-6"> <img src="/images/food.jpg" class="img-circle" height="200" width="200" > </div><div class="col-lg-6"> <h4 class="modal-title">Ingredients</h4> <ul id="ingredients-list"> </ul> </div></div><br><br><div class="row"> <div class="col-lg-12"> <h4 class="modal-title">Directions</h4> <ol id="directions-list"> </ol> </div></div><div class="row"> <div class="col-lg-12"> <h4 class="modal-title">Nutritional Information</h4> <ul id="nutritional_info"> </ul> </div></div></div><div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> </div></div></div>');
+
+  $('#' + id + ' #recipe-name').html(name);
+  $('#' + id + ' #ingredients-list').html("<li>Ingredients</li>");
+  $('#' + id + ' #directions-list').html("<li>Directions</li>")
+  $('#' + id + ' #nutritional_info').html("<li>Nutritional Information</li>")
 
 };
 
@@ -148,6 +156,7 @@ function retrieveRecipes(offset) {
 
         },
         success: function(response) {
+            $("#modal-areas").empty();
             $("#recipe-result-table").find('tbody').empty();
             displayResults(response["results"]);
             setup_pagination(response["total"]);
