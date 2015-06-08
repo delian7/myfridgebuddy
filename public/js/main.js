@@ -70,7 +70,7 @@ function removespan(span,ingredient){
 }
 
 function capitalize(string) {
-  return "• " + string.charAt(0).toUpperCase() + string.substring(1);
+  return "<li>" + string.charAt(0).toUpperCase() + string.substring(1) + "</li>";
 }
 
 function setup_pagination(total_results) {
@@ -95,7 +95,9 @@ function imgError(image) {
 
 
 function displayResults(apiArray) {
-  var tbody = $("#recipe-result-table").find('tbody');
+  // var tbody = $("#recipe-result-table").find('tbody');
+  var recipe_result_area = $('#recipe-result-area')
+
   $.each(apiArray, function(key, value) {
 
     recipeIngredients = [];
@@ -103,14 +105,28 @@ function displayResults(apiArray) {
       recipeIngredients.push(capitalize(ingredient));
     });
 
-    var row = $('<tr>').append(
-      //some images are given 404 error so onerror handles this
-      $('<td style="width:30%"></td>').html("<img id='recipeThumb' onerror='imgError(this);' src=" + value.thumb + ">"),
-      $('<td id="recipe-content-column"></td>').html("<a href=" + value.url + ">" + value.name + "</a>" + "<br><br>" + recipeIngredients.join("<br>")),
-      $('<td class="middle-align"></td>').html("<br/><br/><a class='btn-lg btn btn-success' id='direction-button' href='#'>Directions</a>")
+    var title = $("<div class='row'><div class='col-md-12 text-center' style='margin-top: 1em'><h3>" + value.name + "</h3></div></div>");
+    var row = $("<div class='row'></div>");
+    var pic_col = $("<div class='col-md-5'><img id='recipeThumb' onerror='imgError(this);' src='" + value.thumb + "'></div>");
+    var ingredients_col = $("<div class='col-md-offset-1 col-md-6'>" + recipeIngredients.join('') + "</div>");
+    var info_button = $("<div class='row'><div class='col-md-12'><button style='margin-top: 1em' class='btn btn-primary btn-block'>Directions</button></div></div>");
 
-    );
-    tbody.append(row);
+    row.append(title);
+    row.append(pic_col);
+    row.append(ingredients_col);
+    row.append(info_button);
+    recipe_result_area.append(row);
+
+
+
+    // var row = $('<tr>').append(
+    //   //some images are given 404 error so onerror handles this
+    //   $('<td style="width:30%"></td>').html("<img id='recipeThumb' onerror='imgError(this);' src=" + value.thumb + ">"),
+    //   $('<td id="recipe-content-column"></td>').html("<a href=" + value.url + ">" + value.name + "</a>" + "<br><br>" + recipeIngredients.join("<br>")),
+    //   $('<td class="middle-align"></td>').html("<br/><br/><a class='btn-lg btn btn-success' id='direction-button' href='#'>Directions</a>")
+    //
+    // );
+    // tbody.append(row);
 
     retrieveRecipeSpecifics(value.url);
 
