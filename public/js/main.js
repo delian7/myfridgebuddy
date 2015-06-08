@@ -27,14 +27,12 @@ $('#ingredientInputField').keydown(function(e){
         else {
             alert(ingredient + ' was already entered');
         }
-
         //clears the form
         $(this).val("");
 
         e.preventDefault();
 
         retrieveRecipes(0);
-
 
         //return false since we don't want the focus to 'tab' to another element
         return false;
@@ -43,9 +41,6 @@ $('#ingredientInputField').keydown(function(e){
 
 
 $("#recipeForm").submit(function(e) {
-
-
-
     if (e.which==13){
 
     }
@@ -70,7 +65,6 @@ function removespan(span,ingredient){
 }
 
 function capitalize(string) {
-  // console.log(string)
   return "<li>" + string.charAt(0).toUpperCase() + string.substring(1) + "</li>";
 }
 
@@ -170,9 +164,6 @@ function makeRecipeModal(id, pic_url, name, recipe_ingredients, directions, nutr
   $('#' + id + ' #ingredients-list').html(makeList(recipe_ingredients).join(''));
   $('#' + id + ' #directions-list').html(makeList(directions).join(''));
   $('#' + id + ' #nutritional_info').html(makeList(nutritional_info));
-
-
-  // <div class='col-md-12'><button style='margin-top: 1em' class='btn btn-primary btn-block'>Directions</button></div>
 
 };
 
