@@ -1,6 +1,7 @@
 var app_id = "443bc846"
 var app_key = "a696d6b8bf9139a1f1cc045bf8ee6464"
 var ingredients = [];
+var last_recipe_displayed = 0;
 
 $('#ingredientInputField').keydown(function(e){
     var ingredient = $(this).val();
@@ -19,6 +20,7 @@ $('#ingredientInputField').keydown(function(e){
 
             $('#ingredient-display').append('<span id='+ingredient+'-button class="btn btn-primary btn-lg ingredient-pill">'+ ingredient + '&nbsp;<span id="remove-'+ ingredient + '" class="glyphicon glyphicon-remove-circle" onClick = "removespan(this,\'' + ingredient +'\');"></span>');
 
+            last_recipe_displayed = 0;
             //add the ingredient to the ingredients array to use it later
             ingredients.push(ingredient);
         }
@@ -107,7 +109,17 @@ function capitalize(string) {
 }
 
 function setup_pagination(total_results) {
-  $('#next-button').removeAttr('style');
+  $('#next-button').removeAttr('style'); //unhides the next button
+
+
+  if(last_recipe_displayed < total_results - 10) { 
+    last_recipe_displayed += 10;
+    $('#next-button').attr('onclick', 'retrieveRecipes(' + last_recipe_displayed + ')')
+  }
+  else {
+    $('#next-button').attr('style', 'display:none');
+  }
+
 }
 
 function imgError(image) {
